@@ -1,18 +1,22 @@
+import utils.ApplicationConfig
+import utils.Dependencies
+
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'kotlin-android-extensions'
 }
 
 android {
-    compileSdkVersion application.compileSdkVersion
-    buildToolsVersion application.buildToolsVersion
+    compileSdkVersion ApplicationConfig.Build.compileSdkVersion
+    buildToolsVersion ApplicationConfig.Build.buildToolsVersion
 
     defaultConfig {
-        applicationId application.id
-        minSdkVersion application.minSdkVersion
-        targetSdkVersion application.targetSdkVersion
-        versionCode application.versionCode
-        versionName application.versionName
+        applicationId ApplicationConfig.id
+        versionCode ApplicationConfig.versionCode
+        versionName ApplicationConfig.versionName
+        minSdkVersion ApplicationConfig.Build.minSdkVersion
+        targetSdkVersion ApplicationConfig.Build.compileSdkVersion
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -37,15 +41,15 @@ android {
 
 dependencies {
 
-    implementation deps.kotlin
-    implementation deps.androidx.core
-    implementation deps.androidx.appcompat
-    implementation deps.androidx.constraintlayout
-    implementation deps.google.material
-    implementation deps.retrofit
+    implementation Dependencies.Core.std_kotlin
+    implementation Dependencies.AndroidX.core
+    implementation Dependencies.AndroidX.appcompat
+    implementation Dependencies.AndroidX.constraintlayout
+    implementation Dependencies.Google.material
+    implementation Dependencies.IO.retrofit
 
-    testImplementation deps.test.junit
+    testImplementation Dependencies.Testing.junit
 
-    androidTestImplementation deps.test.androidx_junit_ext
-    androidTestImplementation deps.test.espresso_core
+    androidTestImplementation Dependencies.Testing.junit_ext
+    androidTestImplementation Dependencies.Testing.espresso_core
 }
