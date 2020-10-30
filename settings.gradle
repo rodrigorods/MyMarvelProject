@@ -1,2 +1,5 @@
+include ':network-core'
+project(":network-core").projectDir = new File(rootDir, "data/core")
+
 include ':app'
 rootProject.name = "MyMarvelProject"
