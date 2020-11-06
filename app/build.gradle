@@ -22,9 +22,17 @@ android {
     }
 
     buildTypes {
+        debug {
+            buildConfigField "String", "API_URL", "\"http(s)://gateway.marvel.com/\""
+            buildConfigField "String", "PUBLIC_KEY", "\"ee07ff234684195576531c4c31b8a62c\""
+            buildConfigField "String", "PRIVATE_KEY", "\"7c98530b9a4a7331efc1735c5960ac97e84a98e3\""
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField "String", "API_URL", "\"http(s)://gateway.marvel.com/\""
+            buildConfigField "String", "PUBLIC_KEY", "\"ee07ff234684195576531c4c31b8a62c\""
+            buildConfigField "String", "PRIVATE_KEY", "\"7c98530b9a4a7331efc1735c5960ac97e84a98e3\""
         }
     }
     compileOptions {
@@ -40,14 +48,20 @@ android {
 }
 
 dependencies {
+    implementation project(":network-core")
+    implementation project(":character-ui")
+    implementation project(":character-feature-injector")
 
     implementation Dependencies.Core.std_kotlin
     implementation Dependencies.AndroidX.core
     implementation Dependencies.AndroidX.appcompat
     implementation Dependencies.AndroidX.constraintlayout
     implementation Dependencies.Google.material
+    implementation Dependencies.Navigation.fragment
+    implementation Dependencies.Navigation.ui
+    implementation Dependencies.Koin.core
     implementation Dependencies.IO.retrofit
-
+//CRIAR INTERFACE DE NAVEGACAO num PRESENTATION UTIL
     testImplementation Dependencies.Testing.junit
 
     androidTestImplementation Dependencies.Testing.junit_ext

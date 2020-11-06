@@ -11,8 +11,6 @@ java {
 }
 
 dependencies {
-    implementation Dependencies.Core.std_kotlin
-    implementation Dependencies.IO.retrofit
-    implementation Dependencies.IO.gson_converter
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation Dependencies.Koin.core
 }

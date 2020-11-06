@@ -11,6 +11,8 @@ java {
 }
 
 dependencies {
+    implementation project(":network-utils")
+    implementation project(":character-domain")
     implementation Dependencies.Core.std_kotlin
     implementation Dependencies.IO.retrofit
     implementation Dependencies.IO.gson_converter

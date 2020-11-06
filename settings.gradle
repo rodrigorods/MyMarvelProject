@@ -1,3 +1,19 @@
+
+include ':character-feature-injector'
+project(":character-feature-injector").projectDir = new File(rootDir, "injector/character")
+
+include ':character-ui'
+project(":character-ui").projectDir = new File(rootDir, "presentation/character")
+
+include ':character-domain'
+project(":character-domain").projectDir = new File(rootDir, "domain/character")
+
+include ':character-api'
+project(":character-api").projectDir = new File(rootDir, "data/character")
+
+include ':network-utils'
+project(":network-utils").projectDir = new File(rootDir, "data/utils")
+
 include ':network-core'
 project(":network-core").projectDir = new File(rootDir, "data/core")
 

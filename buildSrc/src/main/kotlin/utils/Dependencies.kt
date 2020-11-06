@@ -6,7 +6,7 @@ object ApplicationConfig {
     const val versionName = "1.0"
 
     object Build {
-        const val minSdkVersion = 21
+        const val minSdkVersion     = 21
         const val compileSdkVersion = 29
         const val buildToolsVersion = "30.0.2"
     }
@@ -18,21 +18,35 @@ object Dependencies {
             const val kotlin= "1.4.10"
             const val gradle= "4.1.0"
         }
-        const val gradle = "com.android.tools.build:gradle:${Versions.gradle}"
-        const val std_kotlin = "org.jetbrains.kotlin:kotlin-stdlib:${Versions.kotlin}"
+        const val gradle        = "com.android.tools.build:gradle:${Versions.gradle}"
+        const val std_kotlin    = "org.jetbrains.kotlin:kotlin-stdlib:${Versions.kotlin}"
         const val gradle_kotlin = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlin}"
     }
 
     object AndroidX {
         private object Versions {
-            const val core = "1.3.2"
-            const val appcompat = "1.2.0"
-            const val constraintlayout = "2.0.4"
+            const val core              = "1.3.2"
+            const val appcompat         = "1.2.0"
+            const val constraintlayout  = "2.0.4"
+            const val liveData          = "2.2.0"
+            const val viewModel         = "2.2.0"
         }
 
-        const val core = "androidx.core:core-ktx:${Versions.core}"
-        const val appcompat = "androidx.appcompat:appcompat:${Versions.appcompat}"
-        const val constraintlayout = "androidx.constraintlayout:constraintlayout:${Versions.constraintlayout}"
+        const val core              = "androidx.core:core-ktx:${Versions.core}"
+        const val appcompat         = "androidx.appcompat:appcompat:${Versions.appcompat}"
+        const val constraintlayout  = "androidx.constraintlayout:constraintlayout:${Versions.constraintlayout}"
+        const val liveData          = "androidx.lifecycle:lifecycle-livedata-ktx:${Versions.liveData}"
+        const val viewModel          = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.viewModel}"
+    }
+
+    object Navigation {
+        object Versions {
+            const val navigation = "2.3.1"
+        }
+
+        const val ui            = "androidx.navigation:navigation-ui-ktx:$${Versions.navigation}"
+        const val fragment      = "androidx.navigation:navigation-fragment-ktx:${Versions.navigation}"
+        const val runtime       = "androidx.navigation:navigation-runtime-ktx::${Versions.navigation}"
     }
 
     object Google {
@@ -48,7 +62,18 @@ object Dependencies {
             const val retrofit = "2.9.0"
         }
 
-        const val retrofit = "com.squareup.retrofit2:retrofit:${Versions.retrofit}"
+        const val retrofit          = "com.squareup.retrofit2:retrofit:${Versions.retrofit}"
+        const val gson_converter    = "com.squareup.retrofit2:converter-gson:${Versions.retrofit}"
+    }
+
+    object Koin {
+        private object Versions {
+            const val koin = "2.1.6"
+        }
+
+        const val core          = "org.koin:koin-core:${Versions.koin}"
+        const val viewModel     = "org.koin:koin-androidx-viewmodel:${Versions.koin}"
+        const val test          = "org.koin:koin-test:${Versions.koin}"
     }
 
     object Testing {
@@ -58,8 +83,8 @@ object Dependencies {
             const val androidx_junit_ext = "1.1.2"
         }
 
-        const val junit = "junit:junit:${Versions.junit}"
-        const val junit_ext = "androidx.test.ext:junit:${Versions.androidx_junit_ext}"
+        const val junit         = "junit:junit:${Versions.junit}"
+        const val junit_ext     = "androidx.test.ext:junit:${Versions.androidx_junit_ext}"
         const val espresso_core = "androidx.test.espresso:espresso-core:${Versions.espresso_core}"
     }
 }
