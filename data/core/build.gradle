@@ -14,5 +14,6 @@ dependencies {
     implementation Dependencies.Core.std_kotlin
     implementation Dependencies.IO.retrofit
     implementation Dependencies.IO.gson_converter
+    implementation Dependencies.IO.log_interceptor
     implementation Dependencies.Koin.core
 }

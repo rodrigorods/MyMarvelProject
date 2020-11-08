@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">MyMarvelProject</string>
+    <string name="characters_list_title">Personagens Marvel</string>
 </resources>

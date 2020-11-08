@@ -23,14 +23,14 @@ android {
 
     buildTypes {
         debug {
-            buildConfigField "String", "API_URL", "\"http(s)://gateway.marvel.com/\""
+            buildConfigField "String", "API_URL", "\"https://gateway.marvel.com/\""
             buildConfigField "String", "PUBLIC_KEY", "\"ee07ff234684195576531c4c31b8a62c\""
             buildConfigField "String", "PRIVATE_KEY", "\"7c98530b9a4a7331efc1735c5960ac97e84a98e3\""
         }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            buildConfigField "String", "API_URL", "\"http(s)://gateway.marvel.com/\""
+            buildConfigField "String", "API_URL", "\"https://gateway.marvel.com/\""
             buildConfigField "String", "PUBLIC_KEY", "\"ee07ff234684195576531c4c31b8a62c\""
             buildConfigField "String", "PRIVATE_KEY", "\"7c98530b9a4a7331efc1735c5960ac97e84a98e3\""
         }

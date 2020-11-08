@@ -10,6 +10,8 @@ class CharacterListViewModel(
     private val useCase: CharactersUseCase
 ): ViewModel() {
 
+//    private characters
+
     fun loadCharacters() = viewModelScope.launch(Dispatchers.IO) {
         useCase.getCharacters()
     }

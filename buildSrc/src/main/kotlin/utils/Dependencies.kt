@@ -44,7 +44,7 @@ object Dependencies {
             const val navigation = "2.3.1"
         }
 
-        const val ui            = "androidx.navigation:navigation-ui-ktx:$${Versions.navigation}"
+        const val ui            = "androidx.navigation:navigation-ui-ktx:${Versions.navigation}"
         const val fragment      = "androidx.navigation:navigation-fragment-ktx:${Versions.navigation}"
         const val runtime       = "androidx.navigation:navigation-runtime-ktx::${Versions.navigation}"
     }
@@ -60,10 +60,12 @@ object Dependencies {
     object IO {
         private object Versions {
             const val retrofit = "2.9.0"
+            const val log_interceptor = "4.2.1"
         }
 
         const val retrofit          = "com.squareup.retrofit2:retrofit:${Versions.retrofit}"
         const val gson_converter    = "com.squareup.retrofit2:converter-gson:${Versions.retrofit}"
+        const val log_interceptor    = "com.squareup.okhttp3:logging-interceptor:${Versions.log_interceptor}"
     }
 
     object Koin {

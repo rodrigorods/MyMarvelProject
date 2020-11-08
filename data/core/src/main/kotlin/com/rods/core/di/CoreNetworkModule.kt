@@ -8,7 +8,14 @@ import org.koin.dsl.module
 
 fun buildCoreNetworkModule(apiUrl: String, publicKey: String, privateKey: String) = module {
     single { NetworkConfiguration(apiUrl, publicKey, privateKey) }
-    factory { AuthInterceptor() }
+    factory {
+        val apiConfig = get<NetworkConfiguration>()
+        AuthInterceptor(
+            timestamp = System.currentTimeMillis().toString(),
+            publicKey = apiConfig.publicKey,
+            privateKey = apiConfig.privateKey
+        )
+    }
     factory { provideOkHttpClient(get()) }
     single {
         provideRetrofit(
