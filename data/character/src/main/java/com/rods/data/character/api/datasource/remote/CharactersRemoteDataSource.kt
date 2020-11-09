@@ -6,5 +6,8 @@ import com.rods.data.character.api.datasource.CharacterDataSource
 class CharactersRemoteDataSource(
     private val api: CharacterApi
 ): CharacterDataSource {
-    override suspend fun getCharacters() = api.getCharacters().data.results
+    override suspend fun getCharacters(
+        batchSize: Int,
+        offset: Int
+    ) = api.getCharacters(batchSize, offset).data.results
 }

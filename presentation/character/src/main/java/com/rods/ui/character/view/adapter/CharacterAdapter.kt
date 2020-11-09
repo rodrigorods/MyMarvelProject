@@ -11,8 +11,13 @@ import com.rods.domain.character.model.MarvelCharacter
 import com.rods.ui.character.R
 
 class CharacterAdapter(
-    private val marvelCharacters: List<MarvelCharacter>
+    private val marvelCharacters: MutableList<MarvelCharacter>
 ) : RecyclerView.Adapter<CharacterAdapter.MarvelCharacterViewHolder>() {
+
+    fun insertCharacters(newCharacters: List<MarvelCharacter>) {
+        marvelCharacters.addAll(newCharacters)
+        notifyDataSetChanged()
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MarvelCharacterViewHolder {
         val rootView = LayoutInflater.from(parent.context).inflate(R.layout.character_cell, parent, false)

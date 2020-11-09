@@ -17,12 +17,23 @@ class CharacterListViewModel(
     private val _marvelCharacters = MutableLiveData<List<MarvelCharacter>>()
     val marvelCharacters: LiveData<List<MarvelCharacter>> = _marvelCharacters
 
+    private val _error = MutableLiveData<Int>()
+    val error: LiveData<Int> = _error
+
+    private val offset = 10
+    private var page = 0
+
     fun loadCharacters() = viewModelScope.launch(Dispatchers.IO) {
-        when (val result = useCase.getCharacters()) {
+        when (val result = useCase.getCharacters(offset, page)) {
             is ResultWrapper.Success -> _marvelCharacters.postValue(result.value)
-            else -> {}
+            else -> _error.postValue(0)
         }
 
+    }
+
+    fun loadNextPage() {
+        page++
+        loadCharacters()
     }
 
 }

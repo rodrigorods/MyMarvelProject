@@ -9,8 +9,8 @@ import com.rods.domain.character.repository.CharactersRepository
 class CharactersRepositoryImpl(
     private val remoteDataSource: CharacterDataSource
 ): CharactersRepository {
-    override suspend fun getCharacters() = safeApiCall {
-        remoteDataSource.getCharacters().map { it.toMarvelCharacter() }
+    override suspend fun getCharacters(batchSize: Int, offset: Int) = safeApiCall {
+        remoteDataSource.getCharacters(batchSize, offset).map { it.toMarvelCharacter() }
     }
 
     private fun CharactersResponse.toMarvelCharacter() = MarvelCharacter(
