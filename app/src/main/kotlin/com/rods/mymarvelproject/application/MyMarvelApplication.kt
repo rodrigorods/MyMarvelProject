@@ -17,8 +17,8 @@ class MyMarvelApplication : Application() {
                 buildCoreNetworkModule(
                     BuildConfig.API_URL,
                     BuildConfig.PUBLIC_KEY,
-                    BuildConfig.PRIVATE_KEY)
-                , navigationModule
+                    BuildConfig.PRIVATE_KEY
+                ), navigationModule
             )
         }
     }

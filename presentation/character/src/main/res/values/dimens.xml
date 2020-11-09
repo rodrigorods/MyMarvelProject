@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="thumbnail_size">60dp</dimen>
+    <dimen name="character_cell_padding">20dp</dimen>
+
+</resources>

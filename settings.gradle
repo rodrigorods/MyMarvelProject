@@ -1,9 +1,11 @@
-
 include ':character-feature-injector'
 project(":character-feature-injector").projectDir = new File(rootDir, "injector/character")
 
 include ':character-ui'
 project(":character-ui").projectDir = new File(rootDir, "presentation/character")
+
+include ':domain-utils'
+project(":domain-utils").projectDir = new File(rootDir, "domain/utils")
 
 include ':character-domain'
 project(":character-domain").projectDir = new File(rootDir, "domain/character")
