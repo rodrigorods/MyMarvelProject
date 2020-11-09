@@ -1,11 +1,7 @@
 package com.rods.ui.character.view
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.rods.domain.character.model.CharactersPage
-import com.rods.domain.character.model.MarvelCharacter
 import com.rods.domain.character.usecase.CharactersUseCase
 import com.rods.domain.utils.ResultWrapper
 import kotlinx.coroutines.Dispatchers
@@ -26,10 +22,18 @@ class CharacterListViewModel(
 
     fun loadCharacters() = viewModelScope.launch(Dispatchers.IO) {
         when (val result = useCase.getCharacters(batchSize, page)) {
-            is ResultWrapper.Success -> _marvelCharacters.postValue(result.value)
+            is ResultWrapper.Success -> dispatchMarvelCharacters(result.value)
             else -> _error.postValue(0)
         }
 
+    }
+
+    private fun dispatchMarvelCharacters(value: CharactersPage) {
+        _marvelCharacters.value?.characters?.let { currentCharacters ->
+            value.characters.addAll(0, currentCharacters)
+        }
+
+        _marvelCharacters.postValue(value)
     }
 
     fun loadNextPage() {

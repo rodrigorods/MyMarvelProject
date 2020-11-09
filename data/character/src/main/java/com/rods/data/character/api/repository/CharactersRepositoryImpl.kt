@@ -14,7 +14,7 @@ class CharactersRepositoryImpl(
         val response = remoteDataSource.getCharacters(batchSize, offset)
         CharactersPage (
             hasMorePages = response.total > response.offset,
-            characters =  response.results.map { it.toMarvelCharacter() }
+            characters = response.results.map { it.toMarvelCharacter() }.toMutableList()
         )
     }
 

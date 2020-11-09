@@ -17,11 +17,11 @@ private enum class ViewType(val id: Int) {
 
 class CharacterAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private val marvelCharacters = mutableListOf<MarvelCharacter>()
+    private var marvelCharacters = listOf<MarvelCharacter>()
     private var hasMoreLoadableData = false
 
     fun insertCharacters(page: CharactersPage) {
-        marvelCharacters.addAll(page.characters)
+        marvelCharacters = page.characters
         hasMoreLoadableData = page.hasMorePages
         notifyDataSetChanged()
     }
