@@ -9,5 +9,5 @@ class CharactersRemoteDataSource(
     override suspend fun getCharacters(
         batchSize: Int,
         offset: Int
-    ) = api.getCharacters(batchSize, offset).data.results
+    ) = api.getCharacters(batchSize, offset).data
 }

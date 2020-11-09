@@ -28,11 +28,10 @@ class CharacterListFragment: Fragment(R.layout.characters_list_fragment) {
 
     private fun observeData() {
         viewModel.marvelCharacters.observe(viewLifecycleOwner, {
-            if (character_list.adapter == null) {
-                character_list.adapter = CharacterAdapter(it as MutableList<MarvelCharacter>)
-            } else {
-                (character_list.adapter as CharacterAdapter).insertCharacters(it)
-            }
+            if (character_list.adapter == null)
+                character_list.adapter = CharacterAdapter()
+
+            (character_list.adapter as CharacterAdapter).insertCharacters(it)
         })
     }
 

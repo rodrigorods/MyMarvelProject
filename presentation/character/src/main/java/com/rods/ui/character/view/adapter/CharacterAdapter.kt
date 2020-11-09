@@ -7,28 +7,52 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.rods.domain.character.model.CharactersPage
 import com.rods.domain.character.model.MarvelCharacter
 import com.rods.ui.character.R
 
-class CharacterAdapter(
-    private val marvelCharacters: MutableList<MarvelCharacter>
-) : RecyclerView.Adapter<CharacterAdapter.MarvelCharacterViewHolder>() {
+private enum class ViewType(val id: Int) {
+    LOADING(0), DEFAULT(1)
+}
 
-    fun insertCharacters(newCharacters: List<MarvelCharacter>) {
-        marvelCharacters.addAll(newCharacters)
+class CharacterAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
+    private val marvelCharacters = mutableListOf<MarvelCharacter>()
+    private var hasMoreLoadableData = false
+
+    fun insertCharacters(page: CharactersPage) {
+        marvelCharacters.addAll(page.characters)
+        hasMoreLoadableData = page.hasMorePages
         notifyDataSetChanged()
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MarvelCharacterViewHolder {
-        val rootView = LayoutInflater.from(parent.context).inflate(R.layout.character_cell, parent, false)
-        return MarvelCharacterViewHolder(rootView)
+    override fun getItemViewType(position: Int): Int {
+        val viewType =
+            if ((position == itemCount - 1) && hasMoreLoadableData) ViewType.LOADING
+            else ViewType.DEFAULT
+
+        return viewType.id
     }
 
-    override fun onBindViewHolder(holder: MarvelCharacterViewHolder, position: Int) {
-        holder.bind(marvelCharacters[position])
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = when(viewType) {
+        ViewType.DEFAULT.id -> MarvelCharacterViewHolder(
+            LayoutInflater.from(parent.context).inflate(R.layout.character_cell, parent, false)
+        )
+        else -> LoadingViewHolder(
+            LayoutInflater.from(parent.context).inflate(R.layout.loading_cell, parent, false)
+        )
     }
 
-    override fun getItemCount() = marvelCharacters.size
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        if (holder is MarvelCharacterViewHolder)
+            holder.bind(marvelCharacters[position])
+    }
+
+    override fun getItemCount(): Int {
+        var totalSize = marvelCharacters.size
+        if (hasMoreLoadableData) totalSize += 1
+        return totalSize
+    }
 
     inner class MarvelCharacterViewHolder(
         private val rootView: View
@@ -51,4 +75,8 @@ class CharacterAdapter(
                 .into(this)
         }
     }
+
+    inner class LoadingViewHolder(
+        private val rootView: View
+    ) : RecyclerView.ViewHolder(rootView)
 }
