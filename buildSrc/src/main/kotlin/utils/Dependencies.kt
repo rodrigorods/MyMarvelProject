@@ -75,6 +75,8 @@ object Dependencies {
 
         const val core          = "org.koin:koin-core:${Versions.koin}"
         const val viewModel     = "org.koin:koin-androidx-viewmodel:${Versions.koin}"
+        const val android_scope     = "org.koin:koin-android-scope:${Versions.koin}"
+        const val android_ext     = "org.koin:koin-android-ext:${Versions.koin}"
         const val test          = "org.koin:koin-test:${Versions.koin}"
     }
 

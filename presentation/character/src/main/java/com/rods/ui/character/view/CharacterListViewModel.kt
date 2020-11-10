@@ -1,7 +1,13 @@
 package com.rods.ui.character.view
 
+import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkInfo
 import android.util.Log
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.rods.domain.character.model.CharactersPage
 import com.rods.domain.character.usecase.CharactersUseCase
 import com.rods.domain.utils.ErrorResponse
@@ -18,6 +24,7 @@ sealed class UIState {
 }
 
 class CharacterListViewModel(
+    private val context: Context,
     private val useCase: CharactersUseCase
 ): ViewModel() {
 
@@ -30,34 +37,49 @@ class CharacterListViewModel(
     private val batchSize = 10
     private var page = 0
 
-    fun loadCharacters() = viewModelScope.launch(Dispatchers.IO) {
-        _uiState.postValue(UIState.Waiting)
-
+    private fun loadCharacters(onError : (ResultWrapper<CharactersPage>) -> Unit) = viewModelScope.launch(Dispatchers.IO) {
         val result = useCase.getCharacters(batchSize, page)
-        val currentUiState = when (result) {
-            is ResultWrapper.Success -> {
-                dispatchMarvelCharacters(result.value)
-                UIState.DisplayingUI
-            }
-            is ResultWrapper.GenericError -> UIState.DefaultError(result.error)
-            else -> UIState.NetworkError
+        if (result is ResultWrapper.Success) {
+            dispatchMarvelCharacters(result.value)
+        } else {
+            if (!hasNetworkConnection()) onError(ResultWrapper.NetworkError)
+            else onError(result)
         }
-        _uiState.postValue(currentUiState)
     }
 
     private fun dispatchMarvelCharacters(value: CharactersPage) {
-        Log.e("TESTE", "dispatchMarvelCharacters: $page")
         _marvelCharacters.value?.characters?.let { currentCharacters ->
             value.characters.addAll(0, currentCharacters)
         }
 
         _marvelCharacters.postValue(value)
+        _uiState.postValue(UIState.DisplayingUI)
+    }
+
+    fun loadInitialCharacters() {
+        _uiState.postValue(UIState.Waiting)
+
+        if(_marvelCharacters.value == null) {
+            loadCharacters(onError = {
+                when (it) {
+                    is ResultWrapper.GenericError -> _uiState.postValue(UIState.DefaultError(it.error))
+                    is ResultWrapper.NetworkError -> _uiState.postValue(UIState.NetworkError)
+                }
+            })
+        }
     }
 
     fun loadNextPage() {
         page++
-        Log.e("TESTE", "loadNextPage: $page")
-        loadCharacters()
+        loadCharacters(onError = {
+            page--
+            _uiState.postValue(UIState.PaginationError)
+        })
     }
 
+    private fun hasNetworkConnection(): Boolean {
+        val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val activeNetwork: NetworkInfo? = cm.activeNetworkInfo
+        return activeNetwork?.isConnectedOrConnecting == true
+    }
 }

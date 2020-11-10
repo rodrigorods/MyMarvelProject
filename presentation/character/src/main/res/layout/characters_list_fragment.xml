@@ -11,14 +11,37 @@
         android:id="@+id/character_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:visibility="gone"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:listitem="@layout/character_cell" />
 
     <ProgressBar
+        android:visibility="gone"
         android:id="@+id/loading"
         android:indeterminate="true"
         android:layout_gravity="center"
         android:layout_width="@dimen/thumbnail_size"
         android:layout_height="@dimen/thumbnail_size"/>
+
+    <LinearLayout
+        android:id="@+id/error_container"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/thumbnail_size"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/error_description"
+            style="@style/TextAppearance.MaterialComponents.Body1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            tools:text="Erro desconhecido"/>
+        <Button
+            android:id="@+id/retry_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/try_again"/>
+    </LinearLayout>
 
 </FrameLayout>

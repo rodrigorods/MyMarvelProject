@@ -3,8 +3,6 @@ package com.rods.core.interceptor
 import okhttp3.Interceptor
 import okhttp3.Response
 import java.security.MessageDigest
-import java.security.PrivateKey
-import java.security.PublicKey
 
 private const val HASH_KEY = "hash"
 private const val TIMESTAMP_KEY = "ts"

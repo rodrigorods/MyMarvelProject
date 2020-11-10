@@ -2,4 +2,8 @@
 <resources>
     <string name="thumbnail_character_description">Thumbnail personagem marvel</string>
     <string name="favorite_character_description">Favoritar personagem marvel</string>
+    <string name="try_again">Tentar novamente</string>
+
+    <string name="pagination_error">Não foi possível carregar mais personagens. Tente novamente mais tarde.</string>
+    <string name="default_network_error">Problema na sua conexão. Tente novamente mais tarde.</string>
 </resources>

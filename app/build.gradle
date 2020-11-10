@@ -60,8 +60,9 @@ dependencies {
     implementation Dependencies.Navigation.fragment
     implementation Dependencies.Navigation.ui
     implementation Dependencies.Koin.core
+    implementation Dependencies.Koin.viewModel
     implementation Dependencies.IO.retrofit
-//CRIAR INTERFACE DE NAVEGACAO num PRESENTATION UTIL
+
     testImplementation Dependencies.Testing.junit
 
     androidTestImplementation Dependencies.Testing.junit_ext

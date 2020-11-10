@@ -5,6 +5,7 @@ import com.rods.core.di.buildCoreNetworkModule
 import com.rods.injection.character.charactersListFeatureModule
 import com.rods.mymarvelproject.BuildConfig
 import com.rods.mymarvelproject.di.navigationModule
+import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 
 class MyMarvelApplication : Application() {
@@ -12,6 +13,7 @@ class MyMarvelApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         startKoin {
+            androidContext(this@MyMarvelApplication)
             modules(charactersListFeatureModule)
             modules(
                 buildCoreNetworkModule(
