@@ -33,6 +33,21 @@ class CharacterListFragment: Fragment(R.layout.characters_list_fragment) {
 
             (character_list.adapter as CharacterAdapter).insertCharacters(it)
         })
+        viewModel.uiState.observe(viewLifecycleOwner, {
+            hideAll()
+            when (it) {
+                is UIState.Waiting -> loading.visibility = View.VISIBLE
+                is UIState.DisplayingUI -> character_list.visibility = View.VISIBLE
+                is UIState.NetworkError -> {}
+                is UIState.DefaultError -> {}
+                is UIState.PaginationError -> {}
+            }
+        })
+    }
+
+    private fun hideAll() {
+        character_list.visibility = View.GONE
+        loading.visibility = View.GONE
     }
 
     private fun RecyclerView.onDetectEndOfScroll(listener: () -> Unit) {
