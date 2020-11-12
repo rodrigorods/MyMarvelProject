@@ -20,6 +20,9 @@ class CharacterAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private var marvelCharacters = listOf<MarvelCharacter>()
     private var hasMoreLoadableData = false
 
+    var favoriteClickListener: ((MarvelCharacter) -> Unit)? = null
+    var defaultClickListener: ((MarvelCharacter) -> Unit)? = null
+
     fun insertCharacters(page: CharactersPage) {
         marvelCharacters = page.characters
         hasMoreLoadableData = page.hasMorePages
@@ -45,7 +48,7 @@ class CharacterAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is MarvelCharacterViewHolder)
-            holder.bind(marvelCharacters[position])
+            holder.bind(marvelCharacters[position], position)
     }
 
     override fun getItemCount(): Int {
@@ -61,11 +64,28 @@ class CharacterAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         private var name: TextView = rootView.findViewById(R.id.name)
         private var description: TextView = rootView.findViewById(R.id.description)
         private var thumbnail: ImageView = rootView.findViewById(R.id.thumbnail)
+        private var favoriteBtn: ImageView = rootView.findViewById(R.id.favoriteBtn)
 
-        fun bind(character: MarvelCharacter) {
+        fun bind(character: MarvelCharacter, index: Int) {
+            rootView.setOnClickListener { defaultClickListener?.invoke(character) }
+            favoriteBtn.setOnClickListener {
+                favoriteClickListener?.invoke(character)
+//                marvelCharacters[index].favorited = !marvelCharacters[index].favorited
+                character.favorited = !character.favorited
+                updateFavoriteButton(character)
+            }
+
             name.text = character.name
             description.text = character.description
             thumbnail.download(character.thumbnailUrl)
+            updateFavoriteButton(character)
+        }
+
+        private fun updateFavoriteButton(character: MarvelCharacter) {
+            val favoritedIcon =
+                if (character.favorited) R.drawable.favorite_black_24dp
+                else R.drawable.favorite_border_black_24dp
+            favoriteBtn.setImageResource(favoritedIcon)
         }
 
         private fun ImageView.download(imageLink: String) {

@@ -1,8 +1,5 @@
 package com.rods.ui.character.view
 
-import android.content.Context
-import android.net.ConnectivityManager
-import android.net.NetworkInfo
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -31,21 +28,34 @@ class CharacterListFragment: Fragment(R.layout.characters_list_fragment) {
     }
 
     private fun observeData() {
-        viewModel.marvelCharacters.observe(viewLifecycleOwner, {
-            if (character_list.adapter == null)
-                character_list.adapter = CharacterAdapter()
+        viewModel.marvelCharacters.observe(viewLifecycleOwner, { charactersPage ->
+            if (character_list.adapter == null) {
+                val adapter = CharacterAdapter().apply {
+                    favoriteClickListener = ::onFavoriteClickListener
+                    defaultClickListener = ::onDefaultClickListener
+                }
 
-            (character_list.adapter as CharacterAdapter).insertCharacters(it)
+                character_list.adapter = adapter
+            }
+
+            (character_list.adapter as CharacterAdapter).insertCharacters(charactersPage)
         })
         viewModel.uiState.observe(viewLifecycleOwner, {
             when (it) {
-                is UIState.Waiting -> displayCharactersList()
-                is UIState.DisplayingUI -> displayLoading()
+                is UIState.Waiting -> displayLoading()
+                is UIState.DisplayingUI -> displayCharactersList()
                 is UIState.NetworkError -> displayError(getString(R.string.default_network_error))
                 is UIState.DefaultError -> displayError(it.error?.message)
                 is UIState.PaginationError -> showSnackbar(R.string.pagination_error)
             }
         })
+    }
+
+    private fun onFavoriteClickListener(character: MarvelCharacter) {
+        viewModel.favoriteCharacter(character)
+    }
+
+    private fun onDefaultClickListener(character: MarvelCharacter) {
     }
 
     private fun hideAll() {
@@ -56,12 +66,12 @@ class CharacterListFragment: Fragment(R.layout.characters_list_fragment) {
 
     private fun displayCharactersList() {
         hideAll()
-        loading.visibility = View.VISIBLE
+        character_list.visibility = View.VISIBLE
     }
 
     private fun displayLoading() {
         hideAll()
-        character_list.visibility = View.VISIBLE
+        loading.visibility = View.VISIBLE
     }
 
     private fun displayError(errorDescription: String?) {

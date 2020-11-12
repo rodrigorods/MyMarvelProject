@@ -1,6 +1,7 @@
 package com.rods.mymarvelproject.application
 
 import android.app.Application
+import com.rods.core.database.di.databaseModule
 import com.rods.core.di.buildCoreNetworkModule
 import com.rods.injection.character.charactersListFeatureModule
 import com.rods.mymarvelproject.BuildConfig
@@ -20,7 +21,7 @@ class MyMarvelApplication : Application() {
                     BuildConfig.API_URL,
                     BuildConfig.PUBLIC_KEY,
                     BuildConfig.PRIVATE_KEY
-                ), navigationModule
+                ), navigationModule, databaseModule
             )
         }
     }

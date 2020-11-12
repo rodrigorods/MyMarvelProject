@@ -80,6 +80,25 @@ object Dependencies {
         const val test          = "org.koin:koin-test:${Versions.koin}"
     }
 
+    object Room {
+        private object Versions {
+            const val room = "2.2.5"
+        }
+
+        const val runtime          = "androidx.room:room-runtime:${Versions.room}"
+        const val ktx              = "androidx.room:room-ktx:${Versions.room}"
+        const val compiler         = "androidx.room:room-compiler:${Versions.room}"
+    }
+
+    object Glide {
+        private object Versions {
+            const val glide = "4.11.0"
+        }
+
+        const val core            = "com.github.bumptech.glide:glide:${Versions.glide}"
+        const val compiler        = "com.github.bumptech.glide:compiler:${Versions.glide}"
+    }
+
     object Testing {
         private object Versions {
             const val junit = "4.13.1"

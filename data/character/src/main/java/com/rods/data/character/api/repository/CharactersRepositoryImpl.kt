@@ -1,27 +1,32 @@
 package com.rods.data.character.api.repository
 
-import com.rods.data.character.api.datasource.CharacterDataSource
-import com.rods.data.character.api.model.CharactersResponse
+import com.rods.data.character.api.datasource.CharacterDataSourceProvider
 import com.rods.data.utils.repository.safeApiCall
-import com.rods.domain.character.model.CharactersPage
 import com.rods.domain.character.model.MarvelCharacter
 import com.rods.domain.character.repository.CharactersRepository
 
 class CharactersRepositoryImpl(
-    private val remoteDataSource: CharacterDataSource
+    private val dataSource: CharacterDataSourceProvider
 ): CharactersRepository {
+
     override suspend fun getCharacters(batchSize: Int, offset: Int) = safeApiCall {
-        val response = remoteDataSource.getCharacters(batchSize, offset)
-        CharactersPage (
-            hasMorePages = response.total > response.offset,
-            characters = response.results.map { it.toMarvelCharacter() }.toMutableList()
-        )
+        val favoritedList = dataSource.getLocal().getFavoriteCharacters()
+        dataSource.getRemote().getCharacters(batchSize, offset).apply {
+            characters.map {
+                if (favoritedList.characters.contains(it)) it.favorited = true
+            }
+        }
     }
 
-    private fun CharactersResponse.toMarvelCharacter() = MarvelCharacter(
-        id = id,
-        name = name,
-        description = description,
-        thumbnailUrl = thumbnail.path + "." + thumbnail.extension
-    )
+    override suspend fun getFavoriteCharacters() = safeApiCall {
+        dataSource.getLocal().getFavoriteCharacters()
+    }
+
+    override suspend fun favorite(character: MarvelCharacter) = safeApiCall {
+        dataSource.getLocal().addCharacterToFavorite(character)
+    }
+
+    override suspend fun unfavorite(character: MarvelCharacter) = safeApiCall {
+        dataSource.getLocal().removeFromFavorite(character)
+    }
 }

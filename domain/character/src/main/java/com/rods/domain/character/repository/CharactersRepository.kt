@@ -6,4 +6,7 @@ import com.rods.domain.utils.ResultWrapper
 
 interface CharactersRepository {
     suspend fun getCharacters(batchSize: Int, offset: Int): ResultWrapper<CharactersPage>
+    suspend fun getFavoriteCharacters(): ResultWrapper<CharactersPage>
+    suspend fun favorite(character: MarvelCharacter): ResultWrapper<Unit>
+    suspend fun unfavorite(character: MarvelCharacter): ResultWrapper<Unit>
 }

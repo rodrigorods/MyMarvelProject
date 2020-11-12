@@ -1,3 +1,5 @@
+
+
 include ':character-feature-injector'
 project(":character-feature-injector").projectDir = new File(rootDir, "injector/character")
 
@@ -18,6 +20,9 @@ project(":network-utils").projectDir = new File(rootDir, "data/utils")
 
 include ':network-core'
 project(":network-core").projectDir = new File(rootDir, "data/core")
+
+include ':database-core'
+project(":database-core").projectDir = new File(rootDir, "data/database")
 
 include ':app'
 rootProject.name = "MyMarvelProject"

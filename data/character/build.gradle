@@ -3,6 +3,7 @@ import utils.Dependencies
 plugins {
     id 'java-library'
     id 'kotlin'
+    id 'kotlin-kapt'
 }
 
 java {
@@ -18,4 +19,8 @@ dependencies {
     implementation Dependencies.IO.retrofit
     implementation Dependencies.IO.gson_converter
     implementation Dependencies.Koin.core
+
+    implementation Dependencies.Room.runtime
+    annotationProcessor Dependencies.Room.compiler
+    kapt Dependencies.Room.compiler
 }

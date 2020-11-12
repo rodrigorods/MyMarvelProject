@@ -9,11 +9,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.rods.domain.character.model.CharactersPage
+import com.rods.domain.character.model.MarvelCharacter
 import com.rods.domain.character.usecase.CharactersUseCase
 import com.rods.domain.utils.ErrorResponse
 import com.rods.domain.utils.ResultWrapper
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 
 sealed class UIState {
     object Waiting : UIState()
@@ -31,13 +31,18 @@ class CharacterListViewModel(
     private val _marvelCharacters = MutableLiveData<CharactersPage>()
     val marvelCharacters: LiveData<CharactersPage> = _marvelCharacters
 
+    private val _favorite = MutableLiveData<Unit>()
+    val favorite: LiveData<Unit> = _favorite
+
     private val _uiState = MutableLiveData<UIState>()
     val uiState: LiveData<UIState> = _uiState
 
     private val batchSize = 10
     private var page = 0
 
-    private fun loadCharacters(onError : (ResultWrapper<CharactersPage>) -> Unit) = viewModelScope.launch(Dispatchers.IO) {
+    private fun loadCharacters(
+        onError : (ResultWrapper<CharactersPage>) -> Unit
+    ) = viewModelScope.launch(Dispatchers.IO) {
         val result = useCase.getCharacters(batchSize, page)
         if (result is ResultWrapper.Success) {
             dispatchMarvelCharacters(result.value)
@@ -77,6 +82,13 @@ class CharacterListViewModel(
         })
     }
 
+    fun favoriteCharacter(c: MarvelCharacter) {
+        viewModelScope.launch {
+            useCase.favorite(c)
+        }
+    }
+
+    @Suppress("DEPRECATION")
     private fun hasNetworkConnection(): Boolean {
         val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val activeNetwork: NetworkInfo? = cm.activeNetworkInfo

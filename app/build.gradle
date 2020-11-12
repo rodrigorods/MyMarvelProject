@@ -49,6 +49,7 @@ android {
 
 dependencies {
     implementation project(":network-core")
+    implementation project(":database-core")
     implementation project(":character-ui")
     implementation project(":character-feature-injector")
 

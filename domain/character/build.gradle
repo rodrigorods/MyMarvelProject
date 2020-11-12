@@ -12,6 +12,5 @@ java {
 
 dependencies {
     implementation project(":domain-utils")
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation Dependencies.Koin.core
 }
