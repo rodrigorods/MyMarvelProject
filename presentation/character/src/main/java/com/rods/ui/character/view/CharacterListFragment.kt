@@ -1,8 +1,12 @@
 package com.rods.ui.character.view
 
+import android.app.SearchManager
+import android.content.Context
 import android.os.Bundle
-import android.util.Log
+import android.view.Menu
+import android.view.MenuInflater
 import android.view.View
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
@@ -10,13 +14,21 @@ import com.rods.domain.character.model.MarvelCharacter
 import com.rods.ui.character.R
 import com.rods.ui.character.view.adapter.CharacterAdapter
 import com.rods.ui.character.view.navigation.CharacterListNavigation
+import kotlinx.android.synthetic.main.characters_list_fragment.*
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import kotlinx.android.synthetic.main.characters_list_fragment.*
+
 
 class CharacterListFragment: Fragment(R.layout.characters_list_fragment) {
     private val viewModel: CharacterListViewModel by viewModel()
     private val navigation: CharacterListNavigation by inject()
+
+    private val searchManager by lazy { requireActivity().getSystemService(Context.SEARCH_SERVICE) as SearchManager }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -30,12 +42,7 @@ class CharacterListFragment: Fragment(R.layout.characters_list_fragment) {
     private fun observeData() {
         viewModel.marvelCharacters.observe(viewLifecycleOwner, { charactersPage ->
             if (character_list.adapter == null) {
-                val adapter = CharacterAdapter().apply {
-                    favoriteClickListener = ::onFavoriteClickListener
-                    defaultClickListener = ::onDefaultClickListener
-                }
-
-                character_list.adapter = adapter
+                character_list.adapter = generateAdapter()
             }
 
             (character_list.adapter as CharacterAdapter).insertCharacters(charactersPage)
@@ -49,6 +56,11 @@ class CharacterListFragment: Fragment(R.layout.characters_list_fragment) {
                 is UIState.PaginationError -> showSnackbar(R.string.pagination_error)
             }
         })
+    }
+
+    private fun generateAdapter() = CharacterAdapter().apply {
+        favoriteClickListener = ::onFavoriteClickListener
+        defaultClickListener = ::onDefaultClickListener
     }
 
     private fun onFavoriteClickListener(character: MarvelCharacter) {
@@ -85,6 +97,22 @@ class CharacterListFragment: Fragment(R.layout.characters_list_fragment) {
     private fun showSnackbar(msgId: Int) = Snackbar.make(
         requireView(), msgId, Snackbar.LENGTH_LONG
     ).show()
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.characters_search_menu, menu)
+        val searchView = menu.findItem(R.id.action_search).actionView as SearchView
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(requireActivity().componentName))
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                viewModel.searchTerm = query
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                return true
+            }
+        })
+    }
 
     private fun RecyclerView.onDetectEndOfScroll(listener: () -> Unit) {
         this.addOnScrollListener(object : RecyclerView.OnScrollListener() {

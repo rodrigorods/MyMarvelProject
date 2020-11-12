@@ -39,6 +39,11 @@ class CharacterListViewModel(
 
     private val batchSize = 10
     private var page = 0
+    var searchTerm: String? = null
+        set(value) {
+            field = value
+            Log.e("TESTE","TESTE")
+        }
 
     private fun loadCharacters(
         onError : (ResultWrapper<CharactersPage>) -> Unit

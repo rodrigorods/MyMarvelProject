@@ -6,4 +6,6 @@
 
     <string name="pagination_error">Não foi possível carregar mais personagens. Tente novamente mais tarde.</string>
     <string name="default_network_error">Problema na sua conexão. Tente novamente mais tarde.</string>
+    <string name="search_characters">Buscar personagens</string>
+    <string name="go_to_fav">Ir para favoritos</string>
 </resources>
