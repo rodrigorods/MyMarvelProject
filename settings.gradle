@@ -12,8 +12,8 @@ project(":domain-utils").projectDir = new File(rootDir, "domain/utils")
 include ':character-domain'
 project(":character-domain").projectDir = new File(rootDir, "domain/character")
 
-include ':character-api'
-project(":character-api").projectDir = new File(rootDir, "data/character")
+include ':character-data'
+project(":character-data").projectDir = new File(rootDir, "data/character")
 
 include ':network-utils'
 project(":network-utils").projectDir = new File(rootDir, "data/utils")
