@@ -10,7 +10,8 @@ interface CharacterApi {
     @GET("/v1/public/characters")
     suspend fun getCharacters(
         @Query("limit") batchSize: Int,
-        @Query("offset") offset: Int
+        @Query("offset") offset: Int,
+        @Query("name") characterName: String?
     ): RawResponse<CharactersResponse>
 
 }

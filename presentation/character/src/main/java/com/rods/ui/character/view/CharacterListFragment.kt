@@ -45,7 +45,9 @@ class CharacterListFragment: Fragment(R.layout.characters_list_fragment) {
                 character_list.adapter = generateAdapter()
             }
 
-            (character_list.adapter as CharacterAdapter).insertCharacters(charactersPage)
+            if (charactersPage != null) {
+                (character_list.adapter as CharacterAdapter).insertCharacters(charactersPage)
+            }
         })
         viewModel.uiState.observe(viewLifecycleOwner, {
             when (it) {
@@ -109,6 +111,7 @@ class CharacterListFragment: Fragment(R.layout.characters_list_fragment) {
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
+                if (newText.isNullOrEmpty()) viewModel.searchTerm = null
                 return true
             }
         })

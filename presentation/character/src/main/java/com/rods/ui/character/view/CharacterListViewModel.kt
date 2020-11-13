@@ -28,8 +28,8 @@ class CharacterListViewModel(
     private val useCase: CharactersUseCase
 ): ViewModel() {
 
-    private val _marvelCharacters = MutableLiveData<CharactersPage>()
-    val marvelCharacters: LiveData<CharactersPage> = _marvelCharacters
+    private val _marvelCharacters = MutableLiveData<CharactersPage?>()
+    val marvelCharacters: LiveData<CharactersPage?> = _marvelCharacters
 
     private val _favorite = MutableLiveData<Unit>()
     val favorite: LiveData<Unit> = _favorite
@@ -41,14 +41,16 @@ class CharacterListViewModel(
     private var page = 0
     var searchTerm: String? = null
         set(value) {
+            Log.e("TESTE", "TESTE $value")
             field = value
-            Log.e("TESTE","TESTE")
+            resetLoadingData()
+            loadInitialCharacters()
         }
 
     private fun loadCharacters(
         onError : (ResultWrapper<CharactersPage>) -> Unit
     ) = viewModelScope.launch(Dispatchers.IO) {
-        val result = useCase.getCharacters(batchSize, page)
+        val result = useCase.getCharacters(batchSize, page, searchTerm)
         if (result is ResultWrapper.Success) {
             dispatchMarvelCharacters(result.value)
         } else {
@@ -91,6 +93,11 @@ class CharacterListViewModel(
         viewModelScope.launch {
             useCase.favorite(c)
         }
+    }
+
+    private fun resetLoadingData() {
+        page = 0
+        _marvelCharacters.value = null
     }
 
     @Suppress("DEPRECATION")

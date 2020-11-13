@@ -11,9 +11,10 @@ class CharacterRemoteDataSourceImpl(
 ): CharacterRemoteDataSource {
     override suspend fun getCharacters(
         batchSize: Int,
-        offset: Int
+        offset: Int,
+        searchTerm: String?
     ): CharactersPage {
-        val response = api.getCharacters(batchSize, offset).data
+        val response = api.getCharacters(batchSize, offset, searchTerm).data
 
         return CharactersPage (
             hasMorePages = response.total > response.offset,

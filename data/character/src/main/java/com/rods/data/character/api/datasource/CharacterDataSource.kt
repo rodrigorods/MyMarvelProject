@@ -4,7 +4,7 @@ import com.rods.domain.character.model.CharactersPage
 import com.rods.domain.character.model.MarvelCharacter
 
 interface CharacterRemoteDataSource {
-    suspend fun getCharacters(batchSize: Int, offset: Int): CharactersPage
+    suspend fun getCharacters(batchSize: Int, offset: Int, searchTerm: String?): CharactersPage
 }
 
 interface CharacterLocalDataSource {

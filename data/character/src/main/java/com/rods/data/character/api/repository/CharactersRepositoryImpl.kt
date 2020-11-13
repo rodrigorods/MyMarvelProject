@@ -9,9 +9,9 @@ class CharactersRepositoryImpl(
     private val dataSource: CharacterDataSourceProvider
 ): CharactersRepository {
 
-    override suspend fun getCharacters(batchSize: Int, offset: Int) = safeApiCall {
+    override suspend fun getCharacters(batchSize: Int, offset: Int, searchTerm: String?) = safeApiCall {
         val favoritedList = dataSource.getLocal().getFavoriteCharacters()
-        dataSource.getRemote().getCharacters(batchSize, offset).apply {
+        dataSource.getRemote().getCharacters(batchSize, offset, searchTerm).apply {
             characters.map {
                 if (favoritedList.characters.contains(it)) it.favorited = true
             }
