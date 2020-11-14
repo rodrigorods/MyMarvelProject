@@ -1,0 +1,18 @@
+import utils.Dependencies
+
+plugins {
+    id 'java-library'
+    id 'kotlin'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_7
+    targetCompatibility = JavaVersion.VERSION_1_7
+}
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation Dependencies.Testing.mock_webserver
+    implementation Dependencies.IO.retrofit
+    implementation Dependencies.IO.gson_converter
+}

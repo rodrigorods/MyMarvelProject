@@ -104,10 +104,12 @@ object Dependencies {
             const val junit = "4.13.1"
             const val espresso_core = "3.3.0"
             const val androidx_junit_ext = "1.1.2"
+            const val webserver = "3.1.2"
         }
 
         const val junit         = "junit:junit:${Versions.junit}"
         const val junit_ext     = "androidx.test.ext:junit:${Versions.androidx_junit_ext}"
         const val espresso_core = "androidx.test.espresso:espresso-core:${Versions.espresso_core}"
+        const val mock_webserver = "com.squareup.okhttp3:mockwebserver:${Versions.webserver}"
     }
 }

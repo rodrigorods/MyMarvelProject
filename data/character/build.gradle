@@ -23,4 +23,11 @@ dependencies {
     implementation Dependencies.Room.runtime
     annotationProcessor Dependencies.Room.compiler
     kapt Dependencies.Room.compiler
+
+    implementation project(":data-test")
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.3.9"
+    testImplementation Dependencies.Testing.mock_webserver
+    testImplementation Dependencies.Testing.junit
+    testImplementation Dependencies.IO.retrofit
+    testImplementation Dependencies.IO.gson_converter
 }

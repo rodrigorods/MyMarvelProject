@@ -18,6 +18,9 @@ project(":character-data").projectDir = new File(rootDir, "data/character")
 include ':network-utils'
 project(":network-utils").projectDir = new File(rootDir, "data/utils")
 
+include ':data-test'
+project(":data-test").projectDir = new File(rootDir, "data/test")
+
 include ':network-core'
 project(":network-core").projectDir = new File(rootDir, "data/core")
 
