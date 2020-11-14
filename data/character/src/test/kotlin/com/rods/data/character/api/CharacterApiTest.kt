@@ -36,7 +36,7 @@ class CharacterApiTest {
 
     @Test
     @MockWebServerResponsePath("single_character_response.json")
-    fun response() = runBlocking {
+    fun getCharacters_returnExpectedResponse() = runBlocking {
         val response = apiService.getCharacters(10, 10, "any")
         Assert.assertEquals(response, expectedResponse)
     }

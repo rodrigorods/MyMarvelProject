@@ -16,11 +16,13 @@ object Dependencies {
     object Core {
         private object Versions {
             const val kotlin= "1.4.10"
+            const val coroutine= "1.3.9"
             const val gradle= "4.1.0"
         }
         const val gradle        = "com.android.tools.build:gradle:${Versions.gradle}"
         const val std_kotlin    = "org.jetbrains.kotlin:kotlin-stdlib:${Versions.kotlin}"
         const val gradle_kotlin = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlin}"
+        const val coroutine_test = "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Versions.coroutine}"
     }
 
     object AndroidX {
@@ -111,5 +113,13 @@ object Dependencies {
         const val junit_ext     = "androidx.test.ext:junit:${Versions.androidx_junit_ext}"
         const val espresso_core = "androidx.test.espresso:espresso-core:${Versions.espresso_core}"
         const val mock_webserver = "com.squareup.okhttp3:mockwebserver:${Versions.webserver}"
+    }
+
+    object Mockk {
+        private object Versions {
+            const val core = "1.10.2"
+        }
+
+        const val core = "io.mockk:mockk:${Versions.core}"
     }
 }

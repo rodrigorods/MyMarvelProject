@@ -12,7 +12,11 @@ java {
 
 dependencies {
     implementation project(":domain-utils")
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation Dependencies.Core.std_kotlin
     implementation Dependencies.IO.retrofit
     implementation Dependencies.IO.gson_converter
+
+    testImplementation Dependencies.Mockk.core
+    testImplementation Dependencies.Testing.junit
+    testImplementation Dependencies.Core.coroutine_test
 }
