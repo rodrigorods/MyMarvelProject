@@ -1,10 +1,13 @@
 package com.rods.data.character.api.datasource.remote
 
 import com.rods.data.character.api.CharacterApi
-import com.rods.data.character.api.datasource.CharacterRemoteDataSource
 import com.rods.data.character.api.model.CharactersResponse
 import com.rods.domain.character.model.CharactersPage
 import com.rods.domain.character.model.MarvelCharacter
+
+interface CharacterRemoteDataSource {
+    suspend fun getCharacters(batchSize: Int, offset: Int, searchTerm: String?): CharactersPage
+}
 
 class CharacterRemoteDataSourceImpl(
     private val api: CharacterApi

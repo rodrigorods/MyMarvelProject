@@ -13,5 +13,4 @@ interface CharacterDao {
 
     @Query("DELETE FROM Characters WHERE id=:characterId")
     suspend fun unfavorite(characterId: Long)
-
 }

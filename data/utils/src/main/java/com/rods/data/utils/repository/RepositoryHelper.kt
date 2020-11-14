@@ -6,6 +6,7 @@ import com.rods.domain.utils.ResultWrapper
 import retrofit2.HttpException
 import java.io.IOException
 
+//TODO Turn into subtipe function of Future BaseRepository
 suspend fun <T> safeApiCall(apiCall: suspend () -> T): ResultWrapper<T> {
     return try {
         ResultWrapper.Success(apiCall.invoke())

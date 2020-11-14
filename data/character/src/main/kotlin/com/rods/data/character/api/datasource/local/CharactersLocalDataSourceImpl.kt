@@ -2,10 +2,14 @@ package com.rods.data.character.api.datasource.local
 
 import com.rods.data.character.api.database.dao.CharacterDao
 import com.rods.data.character.api.database.entity.CharacterEntity
-import com.rods.data.character.api.datasource.CharacterLocalDataSource
-import com.rods.data.character.api.datasource.CharacterRemoteDataSource
 import com.rods.domain.character.model.CharactersPage
 import com.rods.domain.character.model.MarvelCharacter
+
+interface CharacterLocalDataSource {
+    suspend fun getFavoriteCharacters(): CharactersPage
+    suspend fun addCharacterToFavorite(character: MarvelCharacter)
+    suspend fun removeFromFavorite(character: MarvelCharacter)
+}
 
 class CharacterLocalDataSourceImpl(
     private val dao: CharacterDao

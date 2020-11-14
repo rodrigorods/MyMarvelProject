@@ -1,8 +1,8 @@
 package com.rods.data.character.api.repository
 
 import com.rods.data.character.api.datasource.CharacterDataSourceProvider
-import com.rods.data.character.api.datasource.CharacterLocalDataSource
-import com.rods.data.character.api.datasource.CharacterRemoteDataSource
+import com.rods.data.character.api.datasource.local.CharacterLocalDataSource
+import com.rods.data.character.api.datasource.remote.CharacterRemoteDataSource
 import com.rods.domain.character.model.CharactersPage
 import com.rods.domain.character.model.MarvelCharacter
 import com.rods.domain.utils.ResultWrapper
@@ -14,7 +14,6 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Before
 import org.junit.Test
-import java.io.IOException
 
 @ExperimentalCoroutinesApi
 class CharactersRepositoryImplTest {

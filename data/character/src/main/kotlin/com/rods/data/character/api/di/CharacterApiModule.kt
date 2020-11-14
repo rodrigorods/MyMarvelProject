@@ -2,8 +2,8 @@ package com.rods.data.character.api.di
 
 import com.rods.data.character.api.CharacterApi
 import com.rods.data.character.api.datasource.CharacterDataSourceProvider
-import com.rods.data.character.api.datasource.CharacterLocalDataSource
-import com.rods.data.character.api.datasource.CharacterRemoteDataSource
+import com.rods.data.character.api.datasource.local.CharacterLocalDataSource
+import com.rods.data.character.api.datasource.remote.CharacterRemoteDataSource
 import com.rods.data.character.api.datasource.local.CharacterLocalDataSourceImpl
 import com.rods.data.character.api.datasource.remote.CharacterRemoteDataSourceImpl
 import com.rods.data.character.api.repository.CharactersRepositoryImpl
