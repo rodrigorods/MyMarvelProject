@@ -26,7 +26,6 @@ dependencies {
 
     implementation project(":data-test")
     testImplementation Dependencies.Core.coroutine_test
-    testImplementation Dependencies.Testing.mock_webserver
     testImplementation Dependencies.Testing.junit
     testImplementation Dependencies.IO.retrofit
     testImplementation Dependencies.IO.gson_converter
