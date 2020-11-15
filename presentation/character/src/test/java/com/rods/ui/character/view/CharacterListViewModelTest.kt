@@ -2,7 +2,6 @@ package com.rods.ui.character.view
 
 import android.content.Context
 import android.net.ConnectivityManager
-import android.net.NetworkInfo
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.rods.domain.character.model.CharactersPage
 import com.rods.domain.character.model.MarvelCharacter

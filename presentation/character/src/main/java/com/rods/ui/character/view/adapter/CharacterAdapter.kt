@@ -26,7 +26,6 @@ class CharacterAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     fun insertCharacters(page: CharactersPage) {
         marvelCharacters = page.characters
         hasMoreLoadableData = page.hasMorePages
-        notifyDataSetChanged()
     }
 
     override fun getItemViewType(position: Int): Int {

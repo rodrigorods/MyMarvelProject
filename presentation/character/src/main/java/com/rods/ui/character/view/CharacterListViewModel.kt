@@ -44,9 +44,8 @@ class CharacterListViewModel(
         }
 
     fun loadInitialCharacters() {
-        _uiState.postValue(UIState.Waiting)
-
         if(_marvelCharacters.value == null) {
+            _uiState.postValue(UIState.Waiting)
             loadCharacters(onError = {
                 when (it) {
                     is ResultWrapper.GenericError -> _uiState.postValue(UIState.DefaultError(it.error))
