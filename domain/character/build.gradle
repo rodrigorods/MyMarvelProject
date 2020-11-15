@@ -13,4 +13,7 @@ java {
 dependencies {
     implementation project(":domain-utils")
     implementation Dependencies.Koin.core
+    testImplementation Dependencies.Mockk.core
+    testImplementation Dependencies.Core.coroutine_test
+    testImplementation Dependencies.Testing.junit
 }

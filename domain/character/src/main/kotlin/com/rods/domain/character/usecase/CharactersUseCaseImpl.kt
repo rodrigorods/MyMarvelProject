@@ -17,7 +17,9 @@ class CharactersUseCaseImpl(
         batchSize: Int,
         pageIndex: Int,
         searchTerm: String?
-    ) = repository.getCharacters(batchSize, getOffset(batchSize, pageIndex), searchTerm)
+    ): ResultWrapper<CharactersPage> {
+        return repository.getCharacters(batchSize, getOffset(batchSize, pageIndex), searchTerm)
+    }
 
     override suspend fun favorite(character: MarvelCharacter) = with(repository) {
         if (character.favorited) unfavorite(character) else favorite(character)

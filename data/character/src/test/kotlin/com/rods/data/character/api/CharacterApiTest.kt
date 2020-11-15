@@ -16,7 +16,6 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.TestCoroutineDispatcher
 import kotlinx.coroutines.test.setMain
-import okhttp3.mockwebserver.MockWebServer
 import org.junit.*
 
 @ExperimentalCoroutinesApi
