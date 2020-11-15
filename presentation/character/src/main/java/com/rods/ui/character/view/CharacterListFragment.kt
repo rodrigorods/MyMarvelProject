@@ -93,7 +93,10 @@ class CharacterListFragment: Fragment(R.layout.characters_list_fragment) {
         error_container.visibility = View.VISIBLE
 
         error_description.text = errorDescription
-        retry_btn.setOnClickListener { viewModel.loadInitialCharacters() }
+        retry_btn.setOnClickListener {
+            viewModel.resetLoadingData()
+            viewModel.loadInitialCharacters()
+        }
     }
 
     private fun showSnackbar(msgId: Int) = Snackbar.make(

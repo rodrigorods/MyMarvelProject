@@ -23,6 +23,7 @@ object Dependencies {
         const val std_kotlin    = "org.jetbrains.kotlin:kotlin-stdlib:${Versions.kotlin}"
         const val gradle_kotlin = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlin}"
         const val coroutine_test = "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Versions.coroutine}"
+        const val coroutine     = "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.coroutine}"
     }
 
     object AndroidX {
@@ -104,6 +105,7 @@ object Dependencies {
     object Testing {
         private object Versions {
             const val junit = "4.13.1"
+            const val android_core = "2.1.0"
             const val espresso_core = "3.3.0"
             const val androidx_junit_ext = "1.1.2"
             const val webserver = "3.1.2"
@@ -111,6 +113,7 @@ object Dependencies {
 
         const val junit         = "junit:junit:${Versions.junit}"
         const val junit_ext     = "androidx.test.ext:junit:${Versions.androidx_junit_ext}"
+        const val android_core     = "androidx.arch.core:core-testing:${Versions.android_core}"
         const val espresso_core = "androidx.test.espresso:espresso-core:${Versions.espresso_core}"
         const val mock_webserver = "com.squareup.okhttp3:mockwebserver:${Versions.webserver}"
     }

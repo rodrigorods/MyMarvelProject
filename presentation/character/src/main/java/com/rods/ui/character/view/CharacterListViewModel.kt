@@ -31,9 +31,6 @@ class CharacterListViewModel(
     private val _marvelCharacters = MutableLiveData<CharactersPage?>()
     val marvelCharacters: LiveData<CharactersPage?> = _marvelCharacters
 
-    private val _favorite = MutableLiveData<Unit>()
-    val favorite: LiveData<Unit> = _favorite
-
     private val _uiState = MutableLiveData<UIState>()
     val uiState: LiveData<UIState> = _uiState
 
@@ -41,32 +38,10 @@ class CharacterListViewModel(
     private var page = 0
     var searchTerm: String? = null
         set(value) {
-            Log.e("TESTE", "TESTE $value")
             field = value
             resetLoadingData()
             loadInitialCharacters()
         }
-
-    private fun loadCharacters(
-        onError : (ResultWrapper<CharactersPage>) -> Unit
-    ) = viewModelScope.launch(Dispatchers.IO) {
-        val result = useCase.getCharacters(batchSize, page, searchTerm)
-        if (result is ResultWrapper.Success) {
-            dispatchMarvelCharacters(result.value)
-        } else {
-            if (!hasNetworkConnection()) onError(ResultWrapper.NetworkError)
-            else onError(result)
-        }
-    }
-
-    private fun dispatchMarvelCharacters(value: CharactersPage) {
-        _marvelCharacters.value?.characters?.let { currentCharacters ->
-            value.characters.addAll(0, currentCharacters)
-        }
-
-        _marvelCharacters.postValue(value)
-        _uiState.postValue(UIState.DisplayingUI)
-    }
 
     fun loadInitialCharacters() {
         _uiState.postValue(UIState.Waiting)
@@ -95,7 +70,30 @@ class CharacterListViewModel(
         }
     }
 
-    private fun resetLoadingData() {
+    private fun loadCharacters(
+        onError : (ResultWrapper<CharactersPage>) -> Unit
+    ) {
+        viewModelScope.launch {
+            val result = useCase.getCharacters(batchSize, page, searchTerm)
+            if (result is ResultWrapper.Success) {
+                dispatchMarvelCharacters(result.value)
+            } else {
+                if (!hasNetworkConnection()) onError(ResultWrapper.NetworkError)
+                else onError(result)
+            }
+        }
+    }
+
+    private fun dispatchMarvelCharacters(value: CharactersPage) {
+        _marvelCharacters.value?.characters?.let { currentCharacters ->
+            value.characters.addAll(0, currentCharacters)
+        }
+
+        _marvelCharacters.postValue(value)
+        _uiState.postValue(UIState.DisplayingUI)
+    }
+
+    fun resetLoadingData() {
         page = 0
         _marvelCharacters.value = null
     }

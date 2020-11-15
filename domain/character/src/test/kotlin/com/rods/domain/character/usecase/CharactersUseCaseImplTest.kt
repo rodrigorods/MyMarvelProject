@@ -19,7 +19,7 @@ class CharactersUseCaseImplTest {
     private val character = mockk<MarvelCharacter>()
     private val marvelPage = mockk<CharactersPage>()
 
-    private val repository = mockk<CharactersRepository>(relaxed = true)
+    private val repository = mockk<CharactersRepository>()
     private val useCase = CharactersUseCaseImpl(repository)
 
     @Test

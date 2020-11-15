@@ -47,6 +47,7 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'com.google.android.material:material:1.2.1'
     implementation Dependencies.AndroidX.liveData
+    implementation Dependencies.Core.coroutine
     implementation Dependencies.AndroidX.viewModel
     implementation Dependencies.AndroidX.constraintlayout
     implementation Dependencies.Koin.core
@@ -54,7 +55,10 @@ dependencies {
     implementation Dependencies.Glide.core
     kapt Dependencies.Glide.compiler
 
-    testImplementation 'junit:junit:4.13.1'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+    testImplementation Dependencies.Testing.junit
+    testImplementation Dependencies.Mockk.core
+    testImplementation Dependencies.Core.coroutine_test
+    testImplementation Dependencies.Testing.android_core
+    androidTestImplementation Dependencies.Testing.junit_ext
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 }
