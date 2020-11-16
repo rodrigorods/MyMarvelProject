@@ -107,6 +107,8 @@ object Dependencies {
             const val junit = "4.13.1"
             const val android_core = "2.1.0"
             const val espresso_core = "3.3.0"
+            const val recyclerview_action = "3.1.0"
+            const val fragment_scenario = "1.2.5"
             const val androidx_junit_ext = "1.1.2"
             const val webserver = "3.1.2"
         }
@@ -114,7 +116,9 @@ object Dependencies {
         const val junit         = "junit:junit:${Versions.junit}"
         const val junit_ext     = "androidx.test.ext:junit:${Versions.androidx_junit_ext}"
         const val android_core     = "androidx.arch.core:core-testing:${Versions.android_core}"
-        const val espresso_core = "androidx.test.espresso:espresso-core:${Versions.espresso_core}"
+        const val espresso_core         = "androidx.test.espresso:espresso-core:${Versions.espresso_core}"
+        const val espresso_contrib = "androidx.test.espresso:espresso-contrib:${Versions.recyclerview_action}"
+        const val fragment_scenario = "androidx.fragment:fragment-testing:${Versions.fragment_scenario}"
         const val mock_webserver = "com.squareup.okhttp3:mockwebserver:${Versions.webserver}"
     }
 
@@ -124,5 +128,6 @@ object Dependencies {
         }
 
         const val core = "io.mockk:mockk:${Versions.core}"
+        const val android = "io.mockk:mockk-android:${Versions.core}"
     }
 }

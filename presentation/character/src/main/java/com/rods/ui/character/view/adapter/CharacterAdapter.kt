@@ -22,6 +22,7 @@ class CharacterAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     var favoriteClickListener: ((MarvelCharacter) -> Unit)? = null
     var defaultClickListener: ((MarvelCharacter) -> Unit)? = null
+    var onLoadingDisplayedListener: (() -> Unit)? = null
 
     fun insertCharacters(page: CharactersPage) {
         marvelCharacters = page.characters
@@ -46,8 +47,10 @@ class CharacterAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        if (holder is MarvelCharacterViewHolder)
-            holder.bind(marvelCharacters[position], position)
+        when(holder) {
+            is MarvelCharacterViewHolder -> holder.bind(marvelCharacters[position], position)
+            is LoadingViewHolder -> onLoadingDisplayedListener?.invoke()
+        }
     }
 
     override fun getItemCount(): Int {

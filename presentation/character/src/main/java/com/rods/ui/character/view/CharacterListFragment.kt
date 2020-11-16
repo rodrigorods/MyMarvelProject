@@ -18,7 +18,6 @@ import kotlinx.android.synthetic.main.characters_list_fragment.*
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-
 class CharacterListFragment: Fragment(R.layout.characters_list_fragment) {
     private val viewModel: CharacterListViewModel by viewModel()
     private val navigation: CharacterListNavigation by inject()
@@ -35,8 +34,6 @@ class CharacterListFragment: Fragment(R.layout.characters_list_fragment) {
 
         viewModel.loadInitialCharacters()
         observeData()
-
-        character_list.onDetectEndOfScroll { viewModel.loadNextPage() }
     }
 
     private fun observeData() {
@@ -63,6 +60,7 @@ class CharacterListFragment: Fragment(R.layout.characters_list_fragment) {
     private fun generateAdapter() = CharacterAdapter().apply {
         favoriteClickListener = ::onFavoriteClickListener
         defaultClickListener = ::onDefaultClickListener
+        onLoadingDisplayedListener = { viewModel.loadNextPage() }
     }
 
     private fun onFavoriteClickListener(character: MarvelCharacter) {
@@ -120,14 +118,4 @@ class CharacterListFragment: Fragment(R.layout.characters_list_fragment) {
         })
     }
 
-    private fun RecyclerView.onDetectEndOfScroll(listener: () -> Unit) {
-        this.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                super.onScrolled(recyclerView, dx, dy)
-                if (!recyclerView.canScrollVertically(1)) {
-                    listener.invoke()
-                }
-            }
-        })
-    }
 }

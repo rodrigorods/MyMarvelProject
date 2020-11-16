@@ -59,6 +59,11 @@ dependencies {
     testImplementation Dependencies.Mockk.core
     testImplementation Dependencies.Core.coroutine_test
     testImplementation Dependencies.Testing.android_core
+
+    androidTestImplementation Dependencies.Mockk.android
+    androidTestImplementation Dependencies.Koin.test
     androidTestImplementation Dependencies.Testing.junit_ext
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+    androidTestImplementation Dependencies.Testing.espresso_core
+    androidTestImplementation Dependencies.Testing.espresso_contrib
+    androidTestImplementation Dependencies.Testing.fragment_scenario
 }
