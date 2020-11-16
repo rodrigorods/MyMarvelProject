@@ -8,4 +8,5 @@
     <string name="default_network_error">Problema na sua conexão. Tente novamente mais tarde.</string>
     <string name="search_characters">Buscar personagens</string>
     <string name="go_to_fav">Ir para favoritos</string>
+    <string name="error_empty_charaters_list">Sem Personagens para exibir nesse momento</string>
 </resources>

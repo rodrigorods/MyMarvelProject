@@ -42,6 +42,7 @@ class CharacterLocalDataSourceImpl(
         id = id,
         name = name,
         description = description,
-        thumbnailUrl = thumbnailUrl
+        thumbnailUrl = thumbnailUrl,
+        favorited = true
     )
 }

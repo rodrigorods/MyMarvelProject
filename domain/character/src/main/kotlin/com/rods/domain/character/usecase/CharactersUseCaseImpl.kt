@@ -7,6 +7,7 @@ import com.rods.domain.utils.ResultWrapper
 
 interface CharactersUseCase {
     suspend fun getCharacters(batchSize: Int, pageIndex: Int, searchTerm: String?): ResultWrapper<CharactersPage>
+    suspend fun getFavoriteCharacters(): ResultWrapper<CharactersPage>
     suspend fun favorite(character: MarvelCharacter): ResultWrapper<Unit>
 }
 
@@ -19,6 +20,10 @@ class CharactersUseCaseImpl(
         searchTerm: String?
     ): ResultWrapper<CharactersPage> {
         return repository.getCharacters(batchSize, getOffset(batchSize, pageIndex), searchTerm)
+    }
+
+    override suspend fun getFavoriteCharacters(): ResultWrapper<CharactersPage> {
+        return repository.getFavoriteCharacters()
     }
 
     override suspend fun favorite(character: MarvelCharacter) = with(repository) {

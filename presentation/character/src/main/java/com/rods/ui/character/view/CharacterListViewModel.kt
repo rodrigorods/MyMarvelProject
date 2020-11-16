@@ -18,6 +18,8 @@ import kotlinx.coroutines.*
 sealed class UIState {
     object Waiting : UIState()
     object DisplayingUI : UIState()
+    object DisplayingFavorites : UIState()
+    object EmptyList : UIState()
     data class DefaultError(val error: ErrorResponse?) : UIState()
     object NetworkError : UIState()
     object PaginationError : UIState()
@@ -45,14 +47,36 @@ class CharacterListViewModel(
 
     fun loadInitialCharacters() {
         if(_marvelCharacters.value == null) {
-            _uiState.postValue(UIState.Waiting)
-            loadCharacters(onError = {
+            defaultCharacterLoading()
+        }
+    }
+
+    private fun defaultCharacterLoading() {
+        _uiState.postValue(UIState.Waiting)
+        loadCharacters(
+            onError = {
                 when (it) {
                     is ResultWrapper.GenericError -> _uiState.postValue(UIState.DefaultError(it.error))
                     is ResultWrapper.NetworkError -> _uiState.postValue(UIState.NetworkError)
                 }
-            })
-        }
+            }
+        )
+    }
+
+    fun toogleFavoriteList() {
+        resetLoadingData()
+        if (_uiState.value == UIState.DisplayingUI) loadFavoriteCharacters()
+        else if (_uiState.value == UIState.DisplayingFavorites) defaultCharacterLoading()
+    }
+
+    private fun loadFavoriteCharacters() {
+        _uiState.postValue(UIState.Waiting)
+        loadCharacters(
+            successUIState = UIState.DisplayingFavorites,
+            onError = {
+                _uiState.postValue(UIState.DefaultError(null))
+            }
+        )
     }
 
     fun loadNextPage() {
@@ -70,12 +94,17 @@ class CharacterListViewModel(
     }
 
     private fun loadCharacters(
+        successUIState: UIState = UIState.DisplayingUI,
         onError : (ResultWrapper<CharactersPage>) -> Unit
     ) {
         viewModelScope.launch {
-            val result = useCase.getCharacters(batchSize, page, searchTerm)
+            val result = if (successUIState == UIState.DisplayingUI)
+                useCase.getCharacters(batchSize, page, searchTerm)
+            else
+                useCase.getFavoriteCharacters()
+
             if (result is ResultWrapper.Success) {
-                dispatchMarvelCharacters(result.value)
+                dispatchMarvelCharacters(result.value, successUIState)
             } else {
                 if (!hasNetworkConnection()) onError(ResultWrapper.NetworkError)
                 else onError(result)
@@ -83,13 +112,17 @@ class CharacterListViewModel(
         }
     }
 
-    private fun dispatchMarvelCharacters(value: CharactersPage) {
+    private fun dispatchMarvelCharacters(value: CharactersPage, successUIState: UIState) {
         _marvelCharacters.value?.characters?.let { currentCharacters ->
             value.characters.addAll(0, currentCharacters)
         }
 
-        _marvelCharacters.postValue(value)
-        _uiState.postValue(UIState.DisplayingUI)
+        if (value.characters.isNotEmpty()) {
+            _marvelCharacters.postValue(value)
+            _uiState.postValue(successUIState)
+        } else {
+            _uiState.postValue(UIState.EmptyList)
+        }
     }
 
     fun resetLoadingData() {

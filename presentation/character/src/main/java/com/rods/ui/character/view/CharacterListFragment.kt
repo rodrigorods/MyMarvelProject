@@ -5,6 +5,7 @@ import android.content.Context
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
@@ -43,12 +44,15 @@ class CharacterListFragment: Fragment(R.layout.characters_list_fragment) {
 
             if (charactersPage != null) {
                 (character_list.adapter as CharacterAdapter).insertCharacters(charactersPage)
+                (character_list.adapter as CharacterAdapter).notifyDataSetChanged()
             }
         })
         viewModel.uiState.observe(viewLifecycleOwner, {
             when (it) {
                 is UIState.Waiting -> displayLoading()
-                is UIState.DisplayingUI -> displayCharactersList()
+                is UIState.DisplayingUI,
+                is UIState.DisplayingFavorites -> displayCharactersList()
+                is UIState.EmptyList -> displayError(getString(R.string.error_empty_charaters_list))
                 is UIState.NetworkError -> displayError(getString(R.string.default_network_error))
                 is UIState.DefaultError -> displayError(it.error?.message)
                 is UIState.PaginationError -> showSnackbar(R.string.pagination_error)
@@ -118,6 +122,14 @@ class CharacterListFragment: Fragment(R.layout.characters_list_fragment) {
                 return true
             }
         })
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if(item.itemId == R.id.action_list_favorites) {
+            viewModel.toogleFavoriteList()
+            return true
+        }
+        return super.onOptionsItemSelected(item)
     }
 
 }
