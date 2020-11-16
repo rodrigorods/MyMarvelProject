@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">MyMarvelProject</string>
     <string name="characters_list_title">Personagens Marvel</string>
+    <string name="character_detail_title">Detalhe de personagem</string>
 </resources>

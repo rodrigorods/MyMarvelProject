@@ -56,22 +56,20 @@ class CharacterListFragmentTest {
         }
     }
 
-    private fun prepareInitialLoadScenario() {
-        coEvery {
-            useCase.getCharacters(10, 0, null)
-        } returns ResultWrapper.Success(finalPage)
-    }
-
     @Test
     fun onPagination_displayFirstTwoPagesOfCharacters() {
         preparePaginationScenario()
 
         launch {
         } assert {
-            checkAdapterSize(
-                finalPage.characters.size + initialPage.characters.size
-            )
+            checkAdapterSize(finalPage.characters.size + initialPage.characters.size)
         }
+    }
+
+    private fun prepareInitialLoadScenario() {
+        coEvery {
+            useCase.getCharacters(10, 0, null)
+        } returns ResultWrapper.Success(finalPage)
     }
 
     private fun preparePaginationScenario() {

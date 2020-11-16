@@ -8,7 +8,6 @@ import android.view.MenuInflater
 import android.view.View
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import com.rods.domain.character.model.MarvelCharacter
 import com.rods.ui.character.R
@@ -68,6 +67,9 @@ class CharacterListFragment: Fragment(R.layout.characters_list_fragment) {
     }
 
     private fun onDefaultClickListener(character: MarvelCharacter) {
+        with(character) {
+            navigation.openCharacterDetail(this@CharacterListFragment, name, description, thumbnailUrl)
+        }
     }
 
     private fun hideAll() {

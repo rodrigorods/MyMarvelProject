@@ -4,7 +4,6 @@ import androidx.fragment.app.testing.launchFragmentInContainer
 import com.rods.ui.character.R
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.assertion.ViewAssertions.matches
-import androidx.test.espresso.contrib.RecyclerViewActions
 import androidx.test.espresso.matcher.ViewMatchers.*
 import com.rods.ui.character.view.matcher.matchChildPosition
 import org.hamcrest.Matchers.not
@@ -43,12 +42,7 @@ class CharacterListFragmentRobot {
             ))
         }
 
-        fun checkLoadingIsDisplayed() {
-            onView(withId(R.id.character_list)).check(matches(hasDescendant(withId(R.id.loading))))
-        }
-
         fun checkLoadingIsNotDisplayed() {
-
             onView(withId(R.id.character_list)).check(matches(not(hasDescendant(withId(R.id.loading)))))
         }
 

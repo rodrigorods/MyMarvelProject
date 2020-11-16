@@ -8,5 +8,29 @@
         android:id="@+id/characterListFragment"
         android:name="com.rods.ui.character.view.CharacterListFragment"
         android:label="@string/characters_list_title"
-        tools:layout="@layout/characters_list_fragment" />
+        tools:layout="@layout/characters_list_fragment" >
+        <action
+            android:id="@+id/action_openDetailFragment"
+            app:destination="@id/characterDetailFragment">
+        </action>
+    </fragment>
+
+    <fragment
+        android:id="@+id/characterDetailFragment"
+        android:name="com.rods.ui.character.view.detail.CharacterDetailFragment"
+        android:label="@string/character_detail_title"
+        tools:layout="@layout/character_detail_fragment">
+        <argument
+            android:name="characterName"
+            app:argType="string"
+            android:defaultValue=""/>
+        <argument
+            android:name="characterDescription"
+            app:argType="string"
+            android:defaultValue=""/>
+        <argument
+            android:name="characterThumbLink"
+            app:argType="string"
+            android:defaultValue=""/>
+    </fragment>
 </navigation>

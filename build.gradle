@@ -4,6 +4,7 @@ import utils.Dependencies
 buildscript {
     ext {
         kotlin_version = '1.4.10'
+        nav_version = "2.3.1"
     }
     repositories {
         google()
@@ -13,6 +14,7 @@ buildscript {
         classpath Dependencies.Core.gradle
         classpath Dependencies.Core.gradle_kotlin
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$nav_version"
     }
 }
 
