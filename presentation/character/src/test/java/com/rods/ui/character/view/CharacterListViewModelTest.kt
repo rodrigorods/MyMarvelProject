@@ -35,7 +35,8 @@ class CharacterListViewModelTest {
     private val viewModel = CharacterListViewModel(context, useCase)
 
     private val marvelCharacter = mockk<MarvelCharacter>()
-    private val characterPage = mockk<CharactersPage>()
+    private val characterPage = CharactersPage(false, mutableListOf(mockk()))
+    private val emptyCharacterPage = CharactersPage(false, mutableListOf())
 
     @Before
     fun setup() {
@@ -55,6 +56,17 @@ class CharacterListViewModelTest {
         testDispatcher.resumeDispatcher()
         assertEquals(viewModel.uiState.value, UIState.DisplayingUI)
         assertEquals(viewModel.marvelCharacters.value, characterPage)
+    }
+
+    @Test
+    fun loadCharacters_dispatchEmptyListError() {
+        coEvery {
+            useCase.getCharacters(10, 0, null)
+        } returns ResultWrapper.Success(emptyCharacterPage)
+
+        viewModel.loadInitialCharacters()
+
+        assertEquals(viewModel.uiState.value, UIState.EmptyList)
     }
 
     @Test
