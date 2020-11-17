@@ -1,4 +1,4 @@
-# My Marvel Project - Android
+# My Marvel Project - Android [![Build Status](https://app.bitrise.io/app/95c93e62555513a0/status.svg?token=i0QhSYZsZQ5TVz2PHG6afQ&branch=master)](https://app.bitrise.io/app/95c93e62555513a0)
 
 This Repository is a study case for Clean Architecture, Modularization, Koin and MVVM.
 Application layers are subdivided by feature. Ex: character-ui, character-data, character-domain.
