@@ -9,12 +9,12 @@ plugins {
 }
 
 android {
-    compileSdkVersion 29
-    buildToolsVersion "30.0.2"
+    compileSdkVersion 30
+    buildToolsVersion "30.0.3"
 
     defaultConfig {
         minSdkVersion 21
-        targetSdkVersion 29
+        targetSdkVersion 30
         versionCode 1
         versionName "1.0"
 
@@ -28,12 +28,25 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
-
+    sourceSets.all {
+        java.srcDir("src/$name/kotlin")
+    }
     testOptions {
+        animationsDisabled true
+
+        unitTests {
+            includeAndroidResources = true
+        }
+
         unitTests.all {
             testLogging {
                 exceptionFormat = 'full'
             }
+        }
+    }
+    buildTypes {
+        debug {
+            testCoverageEnabled = true
         }
     }
 

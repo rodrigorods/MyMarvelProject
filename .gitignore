@@ -79,3 +79,6 @@ lint/tmp/
 # App Specific cases 
 app/release/output.json
 .idea/codeStyles/
+
+# Jacoco execution file
+*.exec
