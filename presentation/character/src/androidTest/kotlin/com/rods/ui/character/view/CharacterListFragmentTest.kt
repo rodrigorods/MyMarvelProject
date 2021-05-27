@@ -1,14 +1,11 @@
 package com.rods.ui.character.view
 
-import android.content.Context
-import androidx.fragment.app.testing.launchFragment
-import androidx.fragment.app.testing.launchFragmentInContainer
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import androidx.test.platform.app.InstrumentationRegistry
 import com.rods.domain.character.model.CharactersPage
 import com.rods.domain.character.model.MarvelCharacter
 import com.rods.domain.character.usecase.CharactersUseCase
 import com.rods.domain.utils.ResultWrapper
-import com.rods.ui.character.R
 import io.mockk.coEvery
 import io.mockk.mockk
 import org.junit.After
@@ -24,7 +21,7 @@ import org.koin.dsl.module
 @RunWith(AndroidJUnit4::class)
 class CharacterListFragmentTest {
 
-    private val context = mockk<Context>()
+    private val context = InstrumentationRegistry.getInstrumentation().targetContext
     private val useCase = mockk<CharactersUseCase>()
 
     @Before
