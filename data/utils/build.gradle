@@ -10,6 +10,12 @@ java {
     targetCompatibility = JavaVersion.VERSION_1_7
 }
 
+compileTestKotlin {
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
+    }
+}
+
 dependencies {
     implementation project(":domain-utils")
     implementation Dependencies.Core.std_kotlin
