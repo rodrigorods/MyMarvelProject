@@ -124,7 +124,7 @@ object Dependencies {
 
     object Mockk {
         private object Versions {
-            const val core = "1.10.2"
+            const val core = "1.11.0"
         }
 
         const val core = "io.mockk:mockk:${Versions.core}"

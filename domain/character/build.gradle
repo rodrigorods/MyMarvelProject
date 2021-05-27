@@ -10,6 +10,13 @@ java {
     targetCompatibility = JavaVersion.VERSION_1_7
 }
 
+//Needed for Mockk 1.11 bug > JVM target 1.8 into bytecode that is being built with JVM target 1.6
+compileTestKotlin {
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
+    }
+}
+
 dependencies {
     implementation project(":domain-utils")
     implementation Dependencies.Koin.core
